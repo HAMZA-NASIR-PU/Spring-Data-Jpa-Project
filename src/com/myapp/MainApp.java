@@ -1,4 +1,4 @@
-package com.myspring;
+package com.myapp;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
