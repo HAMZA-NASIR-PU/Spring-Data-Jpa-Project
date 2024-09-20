@@ -22,6 +22,12 @@
             <version>3.3.4</version>
         </dependency>
 
+         <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.0.Final</version>
+        </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -41,5 +47,9 @@
 
 - java -cp "META-INF/*;bin;lib/*" com.myapp.MainApp
 
-
+To download all maven jars in the same folder
 - mvn dependency:copy-dependencies
+
+To compile all java files present in the current directory or in sub-packages
+- `dir /s /B *.java > sources.txt`
+- `javac -cp ".\lib\*" -d .\bin @sources.txt`

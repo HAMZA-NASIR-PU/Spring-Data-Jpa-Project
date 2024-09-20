@@ -1,16 +1,19 @@
 package com.myapp;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
+import com.myapp.entities.MyUser;
+import com.myapp.services.impl.MyServiceImpl;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 public class MainApp {
-    @Autowired
-    private MyUserRepository myUserRepository;
-    
 
     public static void main(String[] args) {
-        MainApp abc = new MainApp();
-        System.out.println(abc.myUserRepository);
-        System.out.println("JAVA_HOME: " + System.getenv("JAVA_HOME"));
+
+        AnnotationConfigApplicationContext container = new AnnotationConfigApplicationContext();
+
+        MyServiceImpl bean = container.getBean("MyServiceImpl", MyServiceImpl.class);
+
+        MyUser myUser = new MyUser();
+        myUser.setName("ALI RAZA");
+        // System.out.println("JAVA_HOME: " + System.getenv("JAVA_HOME"));
     }
 
 }

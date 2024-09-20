@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import com.myapp.MainBean;
 
 import javax.sql.DataSource;
@@ -23,65 +23,60 @@ import jakarta.annotation.Resource;
 @EnableTransactionManagement
 public class JpaConfiguration {
 
-    private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
-    private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
-    private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
-    private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
+        private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
+        private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
+        private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
+        private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
 
-    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
-    private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
-    private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN =
-            "entitymanager.packages.to.scan";
+        private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
+        private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+        private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "com.myapp.entities";
 
-    @Resource
-    private Environment env;
+        @Resource
+        private Environment env;
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        @Bean
+        public DataSource dataSource() {
+                DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        dataSource.setDriverClassName(
-                env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
-        dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
-        dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
-        dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+                dataSource.setDriverClassName(
+                                env.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
+                dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
+                dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
+                dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 
-        return dataSource;
-    }
+                return dataSource;
+        }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new
-                LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setDataSource(dataSource());
-        entityManagerFactoryBean.setPersistenceProviderClass(org.hibernate
-                .jpa.HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan(env.
-                getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
+        @Bean
+        public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+                LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
+                emf.setDataSource(dataSource());
+                // emf.setPersistenceProviderClass(org.hibernate.jpa.HibernatePersistenceProvider.class);
+                emf.setPackagesToScan(env.getRequiredProperty(PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN));
+                // emf.setJpaProperties(hibProperties());
+                emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+                return emf;
+        }
 
-        entityManagerFactoryBean.setJpaProperties(hibProperties());
+        private Properties hibProperties() {
+                Properties properties = new Properties();
+                properties.put(PROPERTY_NAME_HIBERNATE_DIALECT,
+                                env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+                properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL,
+                                env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+                return properties;
+        }
 
-        return entityManagerFactoryBean;
-    }
+        @Bean
+        public JpaTransactionManager transactionManager() {
+                JpaTransactionManager transactionManager = new JpaTransactionManager();
+                transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+                return transactionManager;
+        }
 
-    private Properties hibProperties() {
-        Properties properties = new Properties();
-        properties.put(PROPERTY_NAME_HIBERNATE_DIALECT,
-                env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
-        properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL,
-                env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
-        return properties;
-    }
-
-    @Bean
-    public JpaTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-        return transactionManager;
-    }
-
-    @Bean
-    public MainBean mainBean() {
-        return new MainBean();
-    }
+        @Bean
+        public MainBean mainBean() {
+                return new MainBean();
+        }
 }
