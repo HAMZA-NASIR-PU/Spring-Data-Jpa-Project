@@ -13,13 +13,21 @@ import jakarta.transaction.Transactional;
 @Repository
 public class StudentDaoImpl {
 
-    @PersistenceContext(unitName = "mysqldb")
+    // Why can't we use @Autowired => We can when we use Spring Data JPA
+    // @PersistenceContext(unitName = "mysqldb")
+    @Autowired
     EntityManager entityManager;
 
     @Transactional
     public void saveStudent(Student student) {
         entityManager.persist(student);
         System.out.println("Entity saved");
-    } 
+    }
+
+    public List<Student> findAllStudents() {
+        TypedQuery<Student> query = entityManager.createQuery("from Student", Student.class);
+        List<Student> resultList = query.getResultList();
+        return resultList;
+    }
 
 }

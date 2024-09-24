@@ -9,13 +9,20 @@ import com.jpa.datajpademo.config.AppConfig;
 
 public class App {
     public static void main(String[] args) {
-        // StudentDao studentDao = new StudenDaoImpl(); //we dont want to do this manually.
+        // StudentDao studentDao = new StudenDaoImpl(); //we dont want to do this
+        // manually.
         AnnotationConfigApplicationContext container = new AnnotationConfigApplicationContext(AppConfig.class);
         StudentDaoImpl studentDaoImpl = container.getBean("studentDaoImpl", StudentDaoImpl.class);
-        
-        Student student = new Student("ALI", "123456789", "Lahore");
 
-        studentDaoImpl.saveStudent(student);
+        // Inserting a new entry
+        // Student student = new Student("ALI", "123456789", "Lahore");
+
+        // studentDaoImpl.saveStudent(student);
+
+        // Reading all students from db
+        List<Student> students = studentDaoImpl.findAllStudents();
+
+        students.forEach(student -> System.out.println(student.getId()));
 
     }
 }
