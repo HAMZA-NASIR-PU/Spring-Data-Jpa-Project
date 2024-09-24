@@ -62,7 +62,7 @@ Caused by: java.io.IOException: ASM ClassReader failed to parse class file - pro
 
 ### Compile the Java files
 
-- javac -cp ".\lib\*" -d .\bin .\src\com\jpa\datajpademo\*.java .\src\com\jpa\datajpademo\dao\*.java .\src\com\jpa\datajpademo\entity\*.java .\src\com\jpa\datajpademo\config\*.java
+- javac -cp ".\lib\*" -d .\bin .\src\com\jpa\datajpademo\*.java .\src\com\jpa\datajpademo\dao\*.java .\src\com\jpa\datajpademo\entity\*.java
 
 ### Run the Java application
 
