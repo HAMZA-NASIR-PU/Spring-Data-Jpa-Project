@@ -1,4 +1,5 @@
-# Java Persistence with Hibernate Book 2nd Edition
+This project is the continuation of project4. In this project, we are going to learn Spring Data JPA.
+
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -15,15 +16,36 @@
     <name>Maven Quick Start Archetype</name>
     <url>http://maven.apache.org</url>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.1.1</version>
+    </parent>
+
     <dependencies>
 
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.0.0.Final</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>3.1.1</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.0.0</version>
+        </dependency>
+
+        <!--
+        https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>3.1.1</version>
+        </dependency>
 
     </dependencies>
 
@@ -40,11 +62,11 @@ Caused by: java.io.IOException: ASM ClassReader failed to parse class file - pro
 
 ### Compile the Java files
 
-- javac -cp "src\resources\META-INF\persistence.xml;.\lib\*" -d .\bin .\src\com\hibernateTut\app\*.java .\src\com\hibernateTut\app\model\*.java
+- javac -cp ".\lib\*" -d .\bin .\src\com\jpa\datajpademo\*.java .\src\com\jpa\datajpademo\dao\*.java .\src\com\jpa\datajpademo\entity\*.java .\src\com\jpa\datajpademo\config\*.java
 
 ### Run the Java application
 
-- java -cp "bin;lib/*" com.jpa.datajpademo.App
+- java -cp "src/resources;bin;lib/*" com.jpa.datajpademo.App
 
 ### Setting mysql using docker
 
@@ -53,6 +75,8 @@ Caused by: java.io.IOException: ASM ClassReader failed to parse class file - pro
 - docker exec -it mysqldb mysql -uroot -p
 
 ```sql
+CREATE DATABASE testdb;
+USE testdb;
 CREATE TABLE students (
     id int NOT NULL AUTO_INCREMENT,
     name VARCHAR(255),
