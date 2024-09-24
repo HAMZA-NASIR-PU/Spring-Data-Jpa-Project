@@ -78,6 +78,8 @@ Caused by: java.io.IOException: ASM ClassReader failed to parse class file - pro
 - docker exec -it mysqldb mysql -uroot -p
 
 ```sql
+CREATE DATABASE testdb;
+USE testdb;
 CREATE TABLE students (
     id int NOT NULL AUTO_INCREMENT,
     name VARCHAR(255),
