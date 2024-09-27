@@ -53,7 +53,7 @@ In our project, we are using `HikariDataSource` as shown in the following image 
 
 `com.zaxxer.hikari.HikariDataSource` is the default implementation in spring boot of `javax.sql.DataSource`.
 
-![alt text](image3.png)
+![HikariDataSource](images/image3.png)
 
 As you see in above image, `HikariDataSource` implements the `javax.sql.DataSource` interface and also `java.io.Closeable` interface.
 
