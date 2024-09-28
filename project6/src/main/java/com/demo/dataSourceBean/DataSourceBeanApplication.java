@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @SpringBootApplication
 public class DataSourceBeanApplication {
-
+	
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context= SpringApplication.run(DataSourceBeanApplication.class, args);

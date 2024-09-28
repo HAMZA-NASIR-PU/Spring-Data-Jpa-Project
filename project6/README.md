@@ -58,6 +58,66 @@ In our project, we are using `HikariDataSource` as shown in the following image 
 As you see in above image, `HikariDataSource` implements the `javax.sql.DataSource` interface and also `java.io.Closeable` interface.
 
 
+## How HikariDataSource Works
+
+When Spring Boot detects a DataSource configuration, it automatically configures HikariCP as the connection pool manager unless another one is specified. It wraps the DataSource to manage connection pooling efficiently.
+
+### Manual HikariDataSource Configuration 
+
+If you’re manually managing your DataSource without Spring Boot, you can still explicitly configure HikariDataSource.
+
+```java
+import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
+
+@Configuration
+public class DataSourceConfig {
+
+    @Bean
+    public DataSource hikariDataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName("org.h2.Driver");
+        dataSource.setJdbcUrl("jdbc:h2:mem:testdb");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("password");
+
+        // HikariCP-specific settings
+        dataSource.setMaximumPoolSize(10);
+        dataSource.setConnectionTimeout(30000);
+        dataSource.setIdleTimeout(600000);
+        dataSource.setMaxLifetime(1800000);
+
+        return dataSource;
+    }
+}
+```
+
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import javax.sql.DataSource;
+
+@Service
+public class MyService {
+
+    @Autowired
+    private DataSource dataSource;
+
+    public void checkDataSource() {
+        System.out.println("DataSource class: " + dataSource.getClass().getName());
+    }
+}
+```
+
+When you run this, it should print something like:
+- DataSource class: com.zaxxer.hikari.HikariDataSource
+
+By default, if no connection pool is configured, Spring Boot will automatically use HikariCP unless another connection pool (like Tomcat or DBCP) is explicitly configured.
+
+
 ### Running the project:
 
 - `mvnw spring-boot:run`
