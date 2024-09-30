@@ -10,7 +10,7 @@ This project is designed as a learning resource for students and developers who 
 ### project2
 
 This project is designed to understand how to configure hibernate programmatically.
-- 
+
 
 ### Some crucial questions on stackoverflow:
 
