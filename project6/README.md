@@ -62,6 +62,22 @@ As you see in above image, `HikariDataSource` implements the `javax.sql.DataSour
 
 When Spring Boot detects a DataSource configuration, it automatically configures HikariCP as the connection pool manager unless another one is specified. It wraps the DataSource to manage connection pooling efficiently.
 
+
+### synchronized keyword in Java
+
+A synchronized block is a section of code enclosed within a synchronized statement. It can be used to synchronize access to a specific code block, allowing only one thread to execute it at a time. The general syntax of a synchronized block is as follows:
+
+```java
+synchronized (object) {
+    // Synchronized code block
+    // Only one thread can execute this block at a time
+}
+```
+
+
+The object used in the synchronized block is called the monitor object or lock. It is an object that threads must acquire before entering the synchronized block. Only one thread can hold the lock at a time, preventing other threads from executing the synchronized block concurrently.
+
+
 ### Manual HikariDataSource Configuration 
 
 If you’re manually managing your DataSource without Spring Boot, you can still explicitly configure HikariDataSource.
