@@ -36,16 +36,7 @@ public class DataSourceBeanApplication {
 
 		// System.out.println(student.getId());
 
-		Connection connection = dataSource.getConnection();
-
-		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM students");
-
-		ResultSet resultSet = preparedStatement.executeQuery();
-
-		while (resultSet.next()) {
-			Integer id = resultSet.getInt(1);
-			String name = resultSet.getString(2);
-		}
+		
 
 	}
 

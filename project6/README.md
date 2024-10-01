@@ -75,8 +75,29 @@ synchronized (object) {
 ```
 
 
-The object used in the synchronized block is called the monitor object or lock. It is an object that threads must acquire before entering the synchronized block. Only one thread can hold the lock at a time, preventing other threads from executing the synchronized block concurrently.
+The object used in the synchronized block is called the monitor object or lock. It is an object that threads must acquire before entering the synchronized block. Only one thread can hold the lock at a time, preventing other threads from executing the synchronized block concurrently. This is crucial when you see the source code of HikariCP.
 
+The following is a simple JDBC code. The connection is obtained from `getConnection` method of `com.zaxxer.hikari.HikariDataSource`.
+
+```java
+Connection connection = dataSource.getConnection();
+
+PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM students");
+
+ResultSet resultSet = preparedStatement.executeQuery();
+
+while (resultSet.next()) {
+	    Integer id = resultSet.getInt(1);
+	    String name = resultSet.getString(2);
+    }
+```
+
+
+### Important knowledge during debugging of HikariCP.
+
+![HikariCP debug console image](images/image4.png)
+
+These are coming from `com.zaxxer.hikari.HikariDataSource` and `com.zaxxer.hikari.pool.HikariPool`
 
 ### Manual HikariDataSource Configuration 
 
