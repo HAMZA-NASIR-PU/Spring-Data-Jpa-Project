@@ -23,3 +23,5 @@ This project is designed to understand how to configure hibernate programmatical
 - https://stackoverflow.com/questions/42728479/calling-persistence-createentitymanagerfactory-1-time
 
 - https://stackoverflow.com/questions/26367983/where-does-persistence-createentitymanagerfactory-look-for-the-persistence-uni
+
+- When to use JOIN FETCH: `https://medium.com/javarevisited/spring-jpa-when-to-use-join-fetch-a6cec898c4c6`
