@@ -58,9 +58,12 @@ Afterward, I decided to remove the `pom.xml` file and handle the dependencies ma
 
 - mvn dependency:copy-dependencies
 
+<img width="902" height="608" alt="image" src="https://github.com/user-attachments/assets/5ec58a46-1ce2-4561-87fb-d064cf96f789" />
+
+
 ### Compile the Java files
 
-- javac -cp ".\lib\*" -d .\bin .\src\com\myapp\*.java
+- javac -cp "./lib/*" -d ./bin ./src/com/myapp/*.java
 
 ### Run the Java application
 
