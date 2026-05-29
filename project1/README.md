@@ -63,11 +63,11 @@ Afterward, I decided to remove the `pom.xml` file and handle the dependencies ma
 
 ### Compile the Java files
 
-- javac -cp "./lib/*" -d ./bin ./src/com/myapp/*.java
+- `javac -cp "./lib/*" -d ./bin ./src/com/myapp/*.java`
 
 ### Run the Java application
 
-- java -cp "META-INF/*;bin;lib/*" com.myapp.MainApp
+- `java -cp "META-INF/*;bin;lib/*" com.myapp.MainApp`
 
 This approach is intentional for teaching purposes. It allows students to:
 
